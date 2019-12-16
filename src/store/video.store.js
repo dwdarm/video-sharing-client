@@ -23,7 +23,7 @@ const video = {
         return Object.assign({}, state, { 
           comments: {
             items: state.comments.items.concat(action.comments),
-            hasMore: (action.comments.lenght > 0) ? true : false,
+            hasMore: (action.comments.length > 0) ? true : false,
             page: state.comments.page + 1
           }
         });

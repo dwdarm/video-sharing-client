@@ -14,6 +14,10 @@ class VideoPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      likeLoading: false,
+      subscribeLoading: false,
+      postCommentLoading: false,
+      commentsLoading: false,
       comment: ''
     }
     this.fetchVideo = this.fetchVideo.bind(this);
@@ -80,6 +84,7 @@ class VideoPage extends React.Component {
 
   async onSubscribe() {
     try {
+      this.setState({subscribeLoading:true});
       const { auth, dispatch, video } = this.props;
       const res = await accountApi.subscribe(video.accountId._id, auth.token);
       if (res.status >= 400) throw new Error(res.status);
@@ -92,6 +97,7 @@ class VideoPage extends React.Component {
           accountId: account 
         })
       ));
+      this.setState({subscribeLoading:false});
     } catch (err) {
       this.handleError(err);
     }
@@ -99,6 +105,7 @@ class VideoPage extends React.Component {
 
   async onUnsubscribe() {
     try {
+      this.setState({subscribeLoading:true});
       const { auth, dispatch, video } = this.props;
       const res = await accountApi.unsubscribe(video.accountId._id, auth.token);
       if (res.status >= 400) throw new Error(res.status);
@@ -111,6 +118,7 @@ class VideoPage extends React.Component {
           accountId: account 
         })
       ));
+      this.setState({subscribeLoading:false});
     } catch (err) {
       this.handleError(err);
     }
@@ -118,6 +126,7 @@ class VideoPage extends React.Component {
 
   async onLikeVideo() {
     try {
+      this.setState({likeLoading:true});
       const { auth, dispatch, video, match } = this.props;
       const res = await videoApi.like(match.params.id, auth.token);
       if (res.status >= 400) throw new Error(res.status);
@@ -127,6 +136,7 @@ class VideoPage extends React.Component {
           isLiked: true 
         })
       ));
+      this.setState({likeLoading:false});
     } catch (err) {
       this.handleError(err);
     }
@@ -134,6 +144,7 @@ class VideoPage extends React.Component {
 
   async onUnlikeVideo() {
     try {
+      this.setState({likeLoading:true});
       const { auth, dispatch, video, match } = this.props;
       const res = await videoApi.unlike(match.params.id, auth.token);
       if (res.status >= 400) throw new Error(res.status);
@@ -143,6 +154,7 @@ class VideoPage extends React.Component {
           isLiked: false 
         })
       ));
+      this.setState({likeLoading:false});
     } catch (err) {
       this.handleError(err);
     }
@@ -150,6 +162,8 @@ class VideoPage extends React.Component {
 
   async onCommentsLoadMore() {
     try {
+      if (this.state.commentsLoading) return;
+      this.setState({commentsLoading:true});
       const { comments, dispatch, match } = this.props;
       const res = await commentApi.get({
         videoid: match.params.id,
@@ -159,6 +173,7 @@ class VideoPage extends React.Component {
       if (res.status >= 400) throw new Error(res.status);
       const json = await res.json();
       dispatch(videoStore.actions.appendComments(json.data));
+      this.setState({commentsLoading:false});
     } catch (err) {
       this.handleError(err);
     }
@@ -166,13 +181,16 @@ class VideoPage extends React.Component {
 
   async onCommentSubmit() {
     try {
+      this.setState({postCommentLoading:true});
       const { dispatch, match, auth } = this.props;
       const res = await commentApi.post(match.params.id, {
         text: this.state.comment
       }, auth.token);
       if (res.status >= 400) throw new Error(res.status);
       dispatch(videoStore.actions.clearComments());
+      this.setState({postCommentLoading:false});
     } catch (err) {
+      this.setState({postCommentLoading:false});
       this.handleError(err);
     }
   }
@@ -211,9 +229,11 @@ class VideoPage extends React.Component {
                 urlToAvatar={account.urlToAvatar}
                 likes={video.likesTotal}
                 date={video.createdAt}
+                subscribeLoading={this.state.subscribeLoading}
                 onSubscribe={this.onSubscribe}
                 onUnsubscribe={this.onUnsubscribe}
                 isLiked={video.isLiked}
+                likeLoading={this.state.likeLoading}
                 onLike={this.onLikeVideo}
                 onUnlike={this.onUnlikeVideo}
               /> :
@@ -238,6 +258,7 @@ class VideoPage extends React.Component {
               urlToAvatar={account.urlToAvatar}
               onTextChange={(e) => this.setState({comment:e.target.value})}
               onSubmit={this.onCommentSubmit}
+              loading={this.state.postCommentLoading}
             /> : null
             }
 
@@ -277,7 +298,12 @@ function CommentPost(props) {
         </div>
         <div className="field">
           <div className="control">
-            <button className="button is-info" onClick={props.onSubmit}>Submit</button>
+            <button 
+              className={`button is-info ${props.loading ? 'is-loading' : null}`} 
+              onClick={props.onSubmit}
+            >
+              Submit
+            </button>
           </div>
         </div>
       </div>

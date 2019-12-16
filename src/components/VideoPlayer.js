@@ -10,22 +10,32 @@ export default function VideoPlayer(props) {
   return (
     <div onLoad={() => { new Plyr('#player')}}>
       
-      <video
-        id="player" 
-        playsInline 
-        controls
-      >
+      <video id="player" playsInline controls>
         <source src={props.urlToVideo} />
       </video> 
 
       <h1 style={{paddingTop:'1.5rem'}} className="title">{props.title}</h1>
 
       <div className="columns is-mobile">
+
         <div className="column is-narrow">
           {
             (props.isLiked === true) ? 
-            <a className="button" onClick={props.onUnlike}><span className="icon"><FontAwesomeIcon icon={faHeart} /></span><small>{props.likes}</small></a> :
-            <a className="button is-success" onClick={props.onLike}><span className="icon"><FontAwesomeIcon icon={faHeart} /></span><small>{props.likes}</small></a>
+
+            <a 
+              className={`button ${props.likeLoading ? 'is-loading' : null}`} 
+              onClick={props.onUnlike}
+            >
+              <span className="icon"><FontAwesomeIcon icon={faHeart} /></span><small>{props.likes}</small>
+            </a> :
+
+            <a 
+              className={`button is-success ${props.likeLoading ? 'is-loading' : null}`}
+              onClick={props.onLike}
+            >
+              <span className="icon"><FontAwesomeIcon icon={faHeart} /></span><small>{props.likes}</small>
+            </a>
+
           }
         </div>
 
@@ -35,6 +45,7 @@ export default function VideoPlayer(props) {
             <Link className="button is-success" to={`/video-edit/${props.videoId}`}>Edit</Link> : null
           }
         </div>
+
       </div>
 
       <div style={{padding:'1.5rem 0'}} className="media">
@@ -58,9 +69,22 @@ export default function VideoPlayer(props) {
           {
             (!props.owner) ? 
               (props.isSubscribed) ? 
-                <a className="button" onClick={props.onUnsubscribe}>Unsubscribe</a> :
-                <a className="button is-success" onClick={props.onSubscribe}>Subscribe</a> : 
-              null
+
+                <a 
+                  className={`button ${props.subscribeLoading ? 'is-loading' : null}`}  
+                  onClick={props.onUnsubscribe}
+                >
+                  Unsubscribe
+                </a> :
+
+                <a 
+                  className={`button is-success ${props.subscribeLoading ? 'is-loading' : null}`} 
+                  onClick={props.onSubscribe}
+                >
+                  Subscribe
+                </a> 
+
+              : null
           }
         </div>
 
