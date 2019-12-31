@@ -6,9 +6,9 @@ import TimeAgo from 'javascript-time-ago';
 function CommentItem(props) {
   return (
     <div className="media">
-
+      { console.log('CommentList Render') }
       <figure className="media-left">
-        <p className="image is-64x64">
+        <p className="image is-48x48">
           <img className="is-rounded" src={props.urlToAvatar} />
         </p>
       </figure>
@@ -51,14 +51,14 @@ function CommentList(props) {
       props.data.map(comment => (
       
         <CommentItem 
-          key={comment._id}
-          accountId={comment.accountId._id}
+          key={comment.id}
+          accountId={comment.account.id}
           createdAt={comment.createdAt}
-          username={comment.accountId.username}
-          urlToAvatar={comment.accountId.urlToAvatar}
+          username={comment.account.username}
+          urlToAvatar={comment.account.urlToAvatar}
           text={comment.text}
-          owner={comment.accountId._id == props.loggedId}
-          onDelete={() => props.onDelete(comment._id)}
+          owner={comment.account.id == props.loggedId}
+          onDelete={() => props.onDelete(comment.id)}
         />
       
       ))

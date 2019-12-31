@@ -13,7 +13,6 @@ import ProfilePage from './ProfilePage';
 import EditProfilePage from './EditProfilePage';
 import PostVideoPage from './PostVideoPage';
 import EditVideoPage from './EditVideopage';
-import Error404Page from './Error404Page';
 
 const store = configureStore();
 TimeAgo.addLocale(en);
@@ -27,14 +26,13 @@ export default class App extends React.Component {
           <HashRouter>
             <NavBar/>
             <Switch>
-              <Route path="/video-edit/:id"><EditVideoPage/></Route>
+              <Route path="/video/:id/update"><EditVideoPage/></Route>
               <Route path="/video/:id"><VideoPage/></Route>
-              <Route path="/profile-edit/:id"><EditProfilePage/></Route>
+              <Route path="/profile/:id/update"><EditProfilePage/></Route>
               <Route path="/profile/:id"><ProfilePage/></Route>
-              <Route path="/post-video"><PostVideoPage/></Route>
+              <Route path="/post"><PostVideoPage/></Route>
               <Route path="/login"><LoginPage/></Route>
               <Route path="/register" ><RegisterPage/></Route>
-              <Route path="/404" ><Error404Page/></Route>
               <Route path="/"><HomePage/></Route>
             </Switch>
           </HashRouter>
@@ -42,5 +40,5 @@ export default class App extends React.Component {
       </div>
     );
   }
-  
+
 }

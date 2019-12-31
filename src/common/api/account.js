@@ -1,97 +1,95 @@
-import buildUrl from 'build-url';
+import axios from 'axios';
 import { BASE_URL } from './config';
 
 const account = {
 
-  getOne(id, token = null) {
-    return fetch(`${BASE_URL}/accounts/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type' : 'application/json',
-        'Authorization' : `Bearer ${token}`
-      }
-    });
-  },
-
-  getSubscriptions(id, token) {
-    return fetch(`${BASE_URL}/accounts/${id}/subscriptions`, {
-      method: 'GET',
-      headers: {
-        'Content-Type' : 'application/json',
-        'Authorization' : `Bearer ${token}`
-      }
-    });
-  },
-
-  getLikes(id, token, params) {
-    return fetch( buildUrl(`${BASE_URL}/accounts/${id}/likes`, {
-      queryParams: params
-    }), {
-      method: 'GET',
-      headers: {
-        'Content-Type' : 'application/json',
-        'Authorization' : `Bearer ${token}`
-      }
-    });
-  },
-
-  update(id, token, params) {
-    return fetch(`${BASE_URL}/accounts/${id}`, {
-      method: 'PUT',
+  getOne(id, token = null, cancelToken = null) {
+    return axios.get(`${BASE_URL}/accounts/${id}`, {
       headers: {
         'Content-Type' : 'application/json',
         'Authorization' : `Bearer ${token}`
       },
-      body: JSON.stringify(params)
-    })
+      cancelToken
+    });
   },
 
-  subscribe(id, token) {
-    return fetch(`${BASE_URL}/accounts/${id}/subscribe`, {
-      method: 'PUT',
+  getSubscriptions(id, token, cancelToken = null) {
+    return axios.get(`${BASE_URL}/accounts/${id}/subscriptions`, {
       headers: {
         'Content-Type' : 'application/json',
         'Authorization' : `Bearer ${token}`
-      }
-    })
+      },
+      cancelToken
+    });
   },
 
-  unsubscribe(id, token) {
-    return fetch(`${BASE_URL}/accounts/${id}/subscribe`, {
-      method: 'DELETE',
+  getLikes(id, token, params, cancelToken = null) {
+    return axios.get(`${BASE_URL}/accounts/${id}/likes`, {
       headers: {
         'Content-Type' : 'application/json',
         'Authorization' : `Bearer ${token}`
-      }
+      },
+      params,
+      cancelToken
+    });
+  },
+
+  update(id, token, params, cancelToken = null) {
+    return axios.put(`${BASE_URL}/accounts/${id}`, params, {
+      headers: {
+        'Content-Type' : 'application/json',
+        'Authorization' : `Bearer ${token}`
+      },
+      cancelToken
     })
   },
 
-  login(params) {
-    return fetch(`${BASE_URL}/auth`, {
+  subscribe(id, token, cancelToken = null) {
+    return axios.put(`${BASE_URL}/accounts/${id}/subscribe`, null, {
+      headers: {
+        'Content-Type' : 'application/json',
+        'Authorization' : `Bearer ${token}`
+      },
+      cancelToken
+    })
+  },
+
+  unsubscribe(id, token, cancelToken = null) {
+    return axios.delete(`${BASE_URL}/accounts/${id}/subscribe`, {
+      headers: {
+        'Content-Type' : 'application/json',
+        'Authorization' : `Bearer ${token}`
+      },
+      cancelToken
+    })
+  },
+
+  login(params, cancelToken = null) {
+    return axios.post(`${BASE_URL}/auth`, params, {
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+      cancelToken
+    });
+  },
+
+  register(params, cancelToken = null) {
+    return axios.post(`${BASE_URL}/accounts`, params, {
       method: 'POST',
       headers: {
         'Content-Type' : 'application/json'
       },
-      body: JSON.stringify(params)
+      cancelToken
     });
   },
 
-  register(params) {
-    return fetch(`${BASE_URL}/accounts`, {
-      method: 'POST',
+  me(token, cancelToken = null) {
+    return axios.get(`${BASE_URL}/accounts/me`, {
       headers: {
-        'Content-Type' : 'application/json'
-      },
-      body: JSON.stringify(params)
-    });
-  },
-
-  me(token) {
-    return fetch(`${BASE_URL}/accounts/me`, {
-      method: 'GET',
-      headers: {
+        'Content-Type' : 'application/json',
         'Authorization' : `Bearer ${token}`
-      }
+      },
+      cancelToken
     });
   }
 

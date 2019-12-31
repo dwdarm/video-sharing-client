@@ -30,23 +30,25 @@ function VideoItem(props) {
   );
 }
 
-export default function VideoList(props) {
+function VideoList(props) {
+  const { data, hasMore, loadMore } = props;
   return (
     <InfiniteScroll
-      loadMore={props.loadMore}
-      hasMore={props.hasMore}
-      loader={<div className="has-text-centered" key={0}>Loading...</div>}
-    >
+      loadMore={loadMore}
+      hasMore={hasMore}
+      loader={<div className="has-text-centered" key={0}>Loading...</div>}>
+
+      { console.log('VideoList Render') }
       <div className="columns is-multiline">
         {
-          props.data.map(item => (
+          data.map(item => (
             (item) ? 
-            <div key={item._id} className="column is-one-third">
+            <div key={item.id} className="column is-one-third">
               <VideoItem 
-                id={item._id}
+                id={item.id}
                 urlToThumbnail={item.urlToThumbnail}
                 title={item.title}
-                username={item.accountId.username}
+                username={item.account.username}
                 views={item.viewsTotal}
                 createdAt={item.createdAt}
               />
@@ -54,6 +56,9 @@ export default function VideoList(props) {
           ))
         }
       </div>
+
     </InfiniteScroll>
   );
 }
+
+export default VideoList;

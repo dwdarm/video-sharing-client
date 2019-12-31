@@ -3,15 +3,14 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faUser, faSignOutAlt, faSignInAlt, faRegistered } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
-import authStore from '../store/auth.store';
 
 function DefaultMenu() {
   return (
     <div id="navbarMenu" className="navbar-menu">
       <div className="navbar-end">
 
-        <Link 
-          to="/login" 
+        <Link
+          to="/login"
           className="navbar-item"
         >
           <span className="icon"><FontAwesomeIcon icon={faSignInAlt} /></span>
@@ -19,8 +18,8 @@ function DefaultMenu() {
         </Link>
 
         <div className="navbar-item">
-          <Link 
-            to="/register" 
+          <Link
+            to="/register"
             className="button is-success"
             role="button"
           >
@@ -37,10 +36,10 @@ function LoggedMenu(props) {
   return (
     <div id="navbarMenu" className="navbar-menu">
 
-      <div className="navbar-start"> 
+      <div className="navbar-start">
         <div className="navbar-item">
-          <Link 
-            to="/post-video" 
+          <Link
+            to="/post"
             className="button is-success"
             role="button"
           >
@@ -52,20 +51,20 @@ function LoggedMenu(props) {
 
       <div className="navbar-end">
 
-        <Link 
-          to={`/profile/${props.accountId}`} 
+        <Link
+          to={`/profile/${props.accountId}`}
           className="navbar-item"
         >
           <span className="icon"><FontAwesomeIcon icon={faUser} /></span>
           <span>{props.username}</span>
         </Link>
 
-        <a 
-          role="button" 
-          className="navbar-item" 
-          onClick={() => { 
-            props.dispatch(authStore.actions.unauthenticate()); 
-            props.dispatch((() => ({type:'CLEAR'}))());
+        <a
+          role="button"
+          className="navbar-item"
+          onClick={() => {
+            props.dispatch({type:'UNAUTHENTICATE'});
+            props.dispatch({type:'CLEAR'});
           }}
         >
           <span className="icon"><FontAwesomeIcon icon={faSignOutAlt} /></span>
@@ -73,14 +72,14 @@ function LoggedMenu(props) {
         </a>
 
       </div>
-      
+
     </div>
   );
 }
 
 function NavBar(props) {
   return (
-    <nav className="navbar is-black" role="navigation" aria-label="main navigation">
+    <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="container">
 
         { /* Navbar brand */ }
@@ -90,11 +89,11 @@ function NavBar(props) {
           <Link to="/" className="navbar-item"><strong>Video Sharing</strong></Link>
 
           { /* Navbar trigger button */ }
-          <a 
-            role="button" 
-            className="navbar-burger" 
-            aria-label="menu" 
-            aria-expanded="false" 
+          <a
+            role="button"
+            className="navbar-burger"
+            aria-label="menu"
+            aria-expanded="false"
             data-target="navbarMenu"
             onClick={() => {
               const el = document.querySelector('.navbar-burger');

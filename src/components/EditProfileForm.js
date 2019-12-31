@@ -1,112 +1,89 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { updateAccount } from '../store/actions/accounts';
 
-function onRadioChange(event, callback) {
-  if (event.target.value === 'file') {
-    document.getElementById('file-avatar').classList.remove('is-hidden');
-    document.getElementById('url-avatar').classList.add('is-hidden');
-  } else if (event.target.value === 'url') {
-    document.getElementById('file-avatar').classList.add('is-hidden');
-    document.getElementById('url-avatar').classList.remove('is-hidden');
-  }
-
-  if (callback) {
-    callback(event);
-  }
-}
-
-function onFileChange(event, callback) {
-  const file = document.getElementById('file-input');
+function onFileChange(callback) {
+  const file = document.getElementById('file-avatar');
+  const label = document.querySelector('.file-name');
+  label.classList.add('is-hidden');
   if (file.files.length > 0) {
-    const label = document.querySelector('.file-name')
-    label.textContent = file.files[0].name;
-    if (callback) {
-      callback(file.files[0]);
+    if (/image\/*/.test(file.files[0].type)) {
+      label.textContent = file.files[0].name;
+      label.classList.remove('is-hidden');
+      if (callback) {
+        callback(file.files[0]);
+      }
     }
   }
 }
 
-export default function EditProfileForm(props) {
+function EditProfileForm({ accountId, history, auth, account, dispatch, isLoading }) {
+  const [ avatar, setAvatar ] = useState(null);
+  const [ about, setAbout ] = useState('');
+
+  useEffect(() => {
+    if (!auth.isAuthenticated || !account) {
+      return history.replace('/');
+    }
+
+    setAbout(account.about);
+  }, [account]);
+
+  if (!account) {
+    return null;
+  }
+
+  const onSubmit = () => {
+    dispatch(updateAccount(accountId, auth.token, { avatar, about }))
+      .then(() => history.replace(`/profile/${accountId}/about`));
+  }
 
   return (
     <div style={{maxWidth:'600px', margin: '0 auto'}}>
 
       <div className="field">
-        <label className="label">Set Avatar:</label>
-
-        <div className="control">
-          <label className="radio">
-            <input 
-              type="radio" 
-              name="avatar"
-              value="file" 
-              defaultChecked
-              disabled={props.loading === true}
-              onChange={(e) => onRadioChange(e, props.onSetAvatarChange)}
-            /> 
-             File
-          </label>
-          <label className="radio">
-            <input 
-              type="radio"
-              name="avatar"
-              value="url" 
-              disabled={props.loading === true}
-              onChange={(e) => onRadioChange(e, props.onSetAvatarChange)}
-            /> 
-             URL
-          </label>
-        </div>
-
-        <div id="file-avatar" className="control">
-          <div className="file is-info has-name is-fullwidth">
-            <label className="file-label">
-              <input 
-                id="file-input"
-                className="file-input" 
-                type="file" 
-                disabled={props.loading === true}
-                onChange={(e) => onFileChange(e, props.onFileAvatarChange)}
-              />
-              <span className="file-cta">
-                <span className="file-label">Choose a file…</span>
+        <div className="file is-boxed is-centered has-name">
+          <label className="file-label">
+            <input
+              id="file-avatar"
+              className="file-input"
+              type="file"
+              disabled={isLoading === true}
+              onChange={() => onFileChange(setAvatar)}
+            />
+            <span className="file-cta">
+              <figure className="image is-128x128">
+                <img src={account ? account.urlToAvatar : null} />
+              </figure>
+              <span className="file-label">
+                <strong>Set avatar</strong>
               </span>
-              <span className="file-name"></span>
-            </label>
-          </div>
+              <span className="file-name is-hidden"></span>
+            </span>
+          </label>
         </div>
-
-        <div id="url-avatar" className="is-hidden control">
-          <input 
-            className="input" 
-            type="text" 
-            placeholder="URL for avatar" 
-            defaultValue={props.initialUrlToAvatarValue}
-            disabled={props.loading === true}
-            onChange={props.onUrlAvatarChange}
-          />
-        </div>
-
       </div>
 
       <div className="field">
         <div className="control">
-          <textarea 
-            className="textarea" 
+          <label className="label">About:</label>
+          <textarea
+            className="textarea"
             placeholder="About"
             row="10"
-            defaultValue={props.initialAboutValue}
-            disabled={props.loading === true}
-            onChange={props.onAboutChange} 
+            defaultValue={account ? account.about : ''}
+            disabled={isLoading === true}
+            onChange={e => setAbout(e.target.value)}
           />
         </div>
       </div>
 
       <div className="field">
         <div className="control">
-            <button 
-              className={`button is-link is-medium is-fullwidth ${props.loading === true ? 'is-loading' : null}`} 
-              disabled={props.loading === true}
-              onClick={props.onSubmit}
+            <button
+              className={`button is-link is-medium is-fullwidth ${isLoading === true ? 'is-loading' : null}`}
+              disabled={isLoading === true}
+              onClick={onSubmit}
             >
               Submit
             </button>
@@ -116,3 +93,13 @@ export default function EditProfileForm(props) {
     </div>
   );
 }
+
+function mapStateToProps(state, props) {
+  const { auth, accounts } = state;
+  const { isLoading } = accounts;
+  const account = accounts[props.accountId];
+
+  return { auth, account, isLoading }
+}
+
+export default connect(mapStateToProps)(EditProfileForm);

@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
-import home from './home.store';
-import auth from './auth.store';
-import video from './video.store';
-import profile from './profile.store';
+import auth from './reducers/auth';
+import { videos, home } from './reducers/videos';
+import comments from './reducers/comments';
+import accounts from './reducers/accounts';
 
 export default combineReducers({
-  auth: auth.reducer,
-  home: home.reducer,
-  video: video.reducer,
-  profile: profile.reducer
+  auth,
+  videos,
+  home,
+  accounts,
+  comments
 });

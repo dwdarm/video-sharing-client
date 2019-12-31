@@ -1,48 +1,52 @@
 import { BASE_URL } from './config';
+import axios from 'axios';
 
 const upload = {
-  upload(file, token, progress = null) {
+  upload(file, token, cancelToken = null, progress = null) {
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-
-          const res = await fetch(`${BASE_URL}/upload`, {
-            method: 'GET',
+          const res = await axios.get(`${BASE_URL}/upload`, {
             headers: {
               'Content-Type' : 'application/json',
               'Authorization' : `Bearer ${token}`
-            }
+            },
+            cancelToken
           });
-          if (res.status >= 400) throw new Error(res.status);
-          const json = await res.json();
-          const url = json.data.url;
-
+          const url = res.data.data.url;
           const form = new FormData();
           form.append('file', file, file.name);
-
-          const xhr = new XMLHttpRequest();
-          xhr.open('POST', url);
-          xhr.responseType = 'json';
-          xhr.upload.onprogress = progress;
-          xhr.onloadend = () => {
-            if (res.status >= 400) throw new Error(res.status);
-            resolve(xhr.response);
-          }
-          xhr.send(form);
-
+          const res2 = await axios.post(url, form, {
+            onUploadProgress: progress,
+            cancelToken
+          });
+          resolve(res2);
         } catch(err) {
           reject(err);
         }
       })();
     }); 
-    /*
-    return fetch(`${BASE_URL}/upload`, {
-      method: 'GET',
-      headers: {
-        'Content-Type' : 'application/json',
-        'Authorization' : `Bearer ${token}`
-      }
-    });*/
+  },
+
+  uploadUrl(urlToFile, token, cancelToken = null) {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const res = await axios.get(`${BASE_URL}/upload`, {
+            headers: {
+              'Content-Type' : 'application/json',
+              'Authorization' : `Bearer ${token}`
+            },
+            cancelToken
+          });
+          const url = res.data.data.url;
+          const res2 = await axios.post(url, { file: urlToFile }, { cancelToken });
+          resolve(res2);
+        } catch(err) {
+          reject(err);
+        }
+      })();
+    }); 
   }
 }
 

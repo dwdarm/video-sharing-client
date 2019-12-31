@@ -1,73 +1,76 @@
-import buildUrl from 'build-url';
+import axios from 'axios';
 import { BASE_URL } from './config';
 
 const video = {
 
-  get(params) {
-    return fetch(buildUrl(`${BASE_URL}/videos`, {
-      queryParams: params
-    }));
-  },
-
-  getOne(id, token = null) {
-    return fetch(`${BASE_URL}/videos/${id}`, {
-      method: 'GET',
+  get(params, token = null, cancelToken = null) {
+    return axios.get(`${BASE_URL}/videos`, {
+      params,
       headers: {
         'Content-Type' : 'application/json',
         'Authorization' : `Bearer ${token}`
-      }
+      },
+      cancelToken
     });
   },
 
-  post(params, token) {
-    return fetch(`${BASE_URL}/videos`, {
-      method: 'POST',
+  getOne(id, token = null, cancelToken = null) {
+    return axios.get(`${BASE_URL}/videos/${id}`, {
       headers: {
         'Content-Type' : 'application/json',
         'Authorization' : `Bearer ${token}`
       },
-      body: JSON.stringify(params)
-    })
+      cancelToken
+    });
   },
 
-  update(id, params, token) {
-    return fetch(`${BASE_URL}/videos/${id}`, {
-      method: 'PUT',
+  post(params, token, cancelToken = null) {
+    return axios.post(`${BASE_URL}/videos`, params, {
       headers: {
         'Content-Type' : 'application/json',
         'Authorization' : `Bearer ${token}`
       },
-      body: JSON.stringify(params)
+      cancelToken
     })
   },
 
-  delete(id, token) {
-    return fetch(`${BASE_URL}/videos/${id}`, {
-      method: 'DELETE',
+  update(id, token, params, cancelToken = null) {
+    return axios.put(`${BASE_URL}/videos/${id}`, params, {
       headers: {
         'Content-Type' : 'application/json',
         'Authorization' : `Bearer ${token}`
-      }
+      },
+      cancelToken
     })
   },
 
-  like(id, token) {
-    return fetch(`${BASE_URL}/videos/${id}/like`, {
-      method: 'PUT',
+  delete(id, token, cancelToken = null) {
+    return axios.delete(`${BASE_URL}/videos/${id}`, {
       headers: {
         'Content-Type' : 'application/json',
         'Authorization' : `Bearer ${token}`
-      }
+      },
+      cancelToken
     })
   },
 
-  unlike(id, token) {
-    return fetch(`${BASE_URL}/videos/${id}/like`, {
-      method: 'DELETE',
+  like(id, token, cancelToken = null) {
+    return axios.put(`${BASE_URL}/videos/${id}/like`, null, {
       headers: {
         'Content-Type' : 'application/json',
         'Authorization' : `Bearer ${token}`
-      }
+      },
+      cancelToken
+    })
+  },
+
+  unlike(id, token, cancelToken = null) {
+    return axios.delete(`${BASE_URL}/videos/${id}/like`, {
+      headers: {
+        'Content-Type' : 'application/json',
+        'Authorization' : `Bearer ${token}`
+      },
+      cancelToken
     })
   }
 
