@@ -2,6 +2,8 @@ import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Link } from 'react-router-dom';
 import TimeAgo from 'javascript-time-ago';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 function VideoItem(props) {
   return (
@@ -9,10 +11,10 @@ function VideoItem(props) {
       <div className="card">
         <div className="card-image">
           <figure className="image is-16by9 has-background-grey">
-            <img 
+            <img
               className="has-ratio"
-              style={{width:'100%'}} 
-              src={props.urlToThumbnail} 
+              style={{width:'100%'}}
+              src={props.urlToThumbnail}
               alt="thumbnail"
             />
           </figure>
@@ -36,15 +38,20 @@ function VideoList(props) {
     <InfiniteScroll
       loadMore={loadMore}
       hasMore={hasMore}
-      loader={<div className="has-text-centered" key={0}>Loading...</div>}>
+      loader={
+        <div className="has-text-centered" key={0}>
+          <span className="icon">
+            <FontAwesomeIcon icon={faSpinner} size="lg" pulse/>
+          </span>
+        </div>
+      }>
 
-      { console.log('VideoList Render') }
       <div className="columns is-multiline">
         {
           data.map(item => (
-            (item) ? 
+            (item) ?
             <div key={item.id} className="column is-one-third">
-              <VideoItem 
+              <VideoItem
                 id={item.id}
                 urlToThumbnail={item.urlToThumbnail}
                 title={item.title}

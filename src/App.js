@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import configureStore from './store';
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import NavBar from './components/NavBar';
@@ -23,7 +23,7 @@ export default class App extends React.Component {
     return (
       <div>
         <Provider store={store}>
-          <HashRouter>
+          <BrowserRouter>
             <NavBar/>
             <Switch>
               <Route path="/video/:id/update"><EditVideoPage/></Route>
@@ -35,7 +35,7 @@ export default class App extends React.Component {
               <Route path="/register" ><RegisterPage/></Route>
               <Route path="/"><HomePage/></Route>
             </Switch>
-          </HashRouter>
+          </BrowserRouter>
         </Provider>
       </div>
     );

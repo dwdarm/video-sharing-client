@@ -10,7 +10,7 @@ import {
 import Loading from './Loading';
 import Notification from './Notification';
 
-const defaultAvatarUrl = 'https://randomuser.me/api/portraits/lego/5.jpg';
+const defaultAvatarUrl = 'https://res.cloudinary.com/dayie1lcz/image/upload/v1578373630/profile-placeholder_zelklf.png';
 
 function ProfileBanner(props) {
   const { accountId, auth, account, dispatch, error } = props;
@@ -104,7 +104,7 @@ function Profile(props) {
 
             <img
               className="is-rounded"
-              src={(props.account.urlToAvatar) ? props.account.urlToAvatar : defaultAvatarUrl}/>
+              src={props.account.urlToAvatar || defaultAvatarUrl}/>
 
           </figure>
 

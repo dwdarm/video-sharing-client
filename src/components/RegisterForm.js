@@ -1,13 +1,20 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { register } from '../store/actions/auth';
 
-export default function LoginForm(props) {
-
+function RegisterForm(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ email, setEmail ] = useState('');
+  const history = useHistory();
+  const { isAuthenticated, error, loading } = props;
+
+  useEffect(() => {
+    if (isAuthenticated) { history.replace('/') }
+   });
 
   function onRegister(event) {
     event.preventDefault();
@@ -84,3 +91,13 @@ export default function LoginForm(props) {
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.auth.error,
+    loading: state.auth.isLoading
+  }
+}
+
+export default connect(mapStateToProps)(RegisterForm);

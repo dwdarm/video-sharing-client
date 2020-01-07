@@ -7,7 +7,10 @@ function VideoComments(props) {
   const [comment, setComment] = useState('');
   const { dispatch, accounts, videos, comments, auth, videoId } = props;
   const video = videos[videoId];
-  if (!video) { return (null); }
+
+  if (!video) {
+    return (null);
+  }
 
   const { ids, hasMore, isLoading } = video.comments;
   const data = ids.map(id => ({
@@ -16,11 +19,15 @@ function VideoComments(props) {
   }));
 
   function onLoadMore() {
-    if (!isLoading) { dispatch(fetchComments(videoId, auth.token)); }
+    if (!isLoading) {
+      dispatch(fetchComments(videoId, auth.token));
+    }
   }
 
   function onSubmit() {
-    if (comment.length > 0) { dispatch(postComment(videoId, auth.token, comment)); }
+    if (comment.length > 0) {
+      dispatch(postComment(videoId, auth.token, comment));
+    }
   }
 
   function onDelete(commentId) {
