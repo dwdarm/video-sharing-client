@@ -3,7 +3,7 @@ import HomeVideos from './components/HomeVideos';
 
 function HomePage() {
   return (
-    <div className="section">
+    <div className="wrapper">
       <div className="container">
         <HomeVideos />
       </div>

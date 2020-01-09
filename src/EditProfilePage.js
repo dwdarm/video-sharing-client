@@ -7,12 +7,14 @@ function EditProfilePage(props) {
   const history = useHistory();
 
   return (
-    <section className="section">
+    <div className="wrapper">
       <div className="container">
-        <p className="title has-text-centered">Edit Profile</p>
-        <EditProfileForm accountId={id} history={history}/>
+        <div className="form-wrapper">
+          <p className="title has-text-centered">Edit Profile</p>
+          <EditProfileForm accountId={id} history={history}/>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
 

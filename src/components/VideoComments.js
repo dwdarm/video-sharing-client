@@ -35,11 +35,11 @@ function VideoComments(props) {
   }
 
   return (
-    <section className="section">
+    <div className="comment-wrapper">
       <div className="container">
+        <p className="title is-5">Comments</p>
 
         {(auth.isAuthenticated) ?
-
         <CommentPost
           onTextChange={e => setComment(e.target.value)}
           onSubmit={onSubmit}
@@ -55,7 +55,7 @@ function VideoComments(props) {
         />
 
       </div>
-    </section>
+    </div>
   );
 
 }

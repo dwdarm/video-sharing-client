@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { login } from '../store/actions/auth';
 
 function LoginForm(props) {
@@ -22,49 +20,40 @@ function LoginForm(props) {
   return (
     <div style={{maxWidth:'600px', margin: '0 auto'}}>
 
-      {
-        (error !== null) ?<div className="notification is-danger">{error}</div> : null
-      }
+      {(error !== null) ? <div className="notification is-danger">{error}</div> : null}
 
       <div className="field">
-        <div className="control has-icons-left">
+        <label className="label">Username</label>
+        <div className="control">
           <input
-            className="input is-medium"
+            className="input"
             type="text"
-            placeholder="Username"
             disabled={loading === true}
             onChange={e => setUsername(e.target.value)}
           />
-          <span className="icon is-medium is-left">
-            <FontAwesomeIcon icon={faUser} />
-          </span>
         </div>
       </div>
 
       <div className="field">
-        <div className="control has-icons-left">
+        <label className="label">Password</label>
+        <div className="control">
           <input
-            className="input is-medium"
+            className="input"
             type="password"
-            placeholder="Password"
             disabled={loading === true}
             onChange={e => setPassword(e.target.value)}
           />
-          <span className="icon is-medium is-left">
-            <FontAwesomeIcon icon={faLock} />
-          </span>
         </div>
       </div>
 
       <div className="field">
         <div className="control">
-            <button
-              className={`button is-link is-medium is-fullwidth ${loading === true ? 'is-loading' : null}`}
-              disabled={loading === true}
-              onClick={onLogin}
-            >
-              Login
-            </button>
+          <button
+            className={`button is-link is-fullwidth ${loading === true ? 'is-loading' : null}`}
+            disabled={loading === true}
+            onClick={onLogin}>
+            Login
+          </button>
         </div>
       </div>
 

@@ -12,13 +12,9 @@ function Notification(props) {
   }
 
   return (
-    <section className="section">
-      <div className="container">
-        <div className={`notification has-text-centered ${type}`}>
-          <strong>{props.text}</strong>
-        </div>
-      </div>
-    </section>
+    <div className={`notification has-text-centered ${type}`}>
+      <strong>{props.text}</strong>
+    </div>
   );
 }
 

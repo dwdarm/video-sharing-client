@@ -70,6 +70,7 @@ function LoggedMenu(props) {
 }
 
 function NavBar(props) {
+
   useEffect(() => {
     const trigger = document.querySelector('.navbar-burger');
     const menu = document.getElementById(trigger.dataset.target);
@@ -78,7 +79,7 @@ function NavBar(props) {
   })
 
   return (
-    <nav className="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+    <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
       <div className="container">
 
         { /* Navbar brand */ }

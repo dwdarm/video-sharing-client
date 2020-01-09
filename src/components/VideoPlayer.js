@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import { fetchVideo, likeVideo, unlikeVideo } from '../store/actions/videos';
 import { subscribeAccount, unsubscribeAccount } from '../store/actions/accounts';
 
+const defaultAvatarUrl = 'https://res.cloudinary.com/dayie1lcz/image/upload/v1578373630/profile-placeholder_zelklf.png';
+
 function VideoPlayer({
   auth, video, isLikeLoading, isSubLoading, dispatch, videoId, error }) {
   useEffect(() => {
@@ -18,11 +20,23 @@ function VideoPlayer({
   });
 
   if (error && !video) {
-    return <Notification type="error" text={error}/>
+    return(
+      <div className="wrapper">
+        <div className="container">
+          <Notification type="error" text={error}/>
+        </div>
+      </div>
+    );
   }
 
   if (!video) {
-    return <Loading/>
+    return(
+      <div className="wrapper">
+        <div className="container">
+          <Loading/>
+        </div>
+      </div>
+    );
   }
 
   const { account } = video;
@@ -40,7 +54,7 @@ function VideoPlayer({
         </div>
       </div>
 
-      <section className="section">
+      <div className="video-wrapper">
         <div className="container">
 
           { /* Title */ }
@@ -82,7 +96,7 @@ function VideoPlayer({
 
             <div className="media-left">
               <figure className="image is-64x64">
-                <img className="is-rounded" src={account.urlToAvatar}/>
+                <img className="is-rounded" src={account.urlToAvatar || defaultAvatarUrl}/>
               </figure>
             </div>
 
@@ -124,13 +138,7 @@ function VideoPlayer({
           </div>
 
         </div>
-      </section>
-
-      <section className="section" style={{paddingBottom:'0'}}>
-        <div className="container">
-          <p className="title is-5">Comments ({video.commentsTotal})</p>
-        </div>
-      </section>
+      </div>
 
     </div>
   );

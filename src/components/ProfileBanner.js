@@ -22,11 +22,23 @@ function ProfileBanner(props) {
   });
 
   if (error && !account) {
-    return <Notification type="error" text={error}/>
+    return(
+      <div className="wrapper">
+        <div className="container">
+          <Notification type="error" text={error}/>
+        </div>
+      </div>
+    );
   }
 
   if (!account) {
-    return <Loading/>
+    return(
+      <div className="wrapper">
+        <div className="container">
+          <Loading/>
+        </div>
+      </div>
+    );
   }
 
   return(

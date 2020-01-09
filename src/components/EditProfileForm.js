@@ -65,11 +65,10 @@ function EditProfileForm({ accountId, history, auth, account, dispatch, isLoadin
       </div>
 
       <div className="field">
+        <label className="label">About</label>
         <div className="control">
-          <label className="label">About:</label>
           <textarea
             className="textarea"
-            placeholder="About"
             row="10"
             defaultValue={account ? account.about : ''}
             disabled={isLoading === true}
@@ -81,7 +80,7 @@ function EditProfileForm({ accountId, history, auth, account, dispatch, isLoadin
       <div className="field">
         <div className="control">
             <button
-              className={`button is-link is-medium is-fullwidth ${isLoading === true ? 'is-loading' : null}`}
+              className={`button is-link is-fullwidth ${isLoading === true ? 'is-loading' : null}`}
               disabled={isLoading === true}
               onClick={onSubmit}
             >

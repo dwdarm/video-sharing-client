@@ -33,7 +33,7 @@ function ProfileTab(props) {
         </ul>
       </div>
 
-      <section style={{paddingTop:'1rem'}} className="section">
+      <div className="wrapper" style={{paddingBottom:'4.5rem'}}>
         <div className="container">
           <Switch>
             <Route path={`${match.path}/about`}>
@@ -50,7 +50,7 @@ function ProfileTab(props) {
             </Route>
           </Switch>
         </div>
-      </section>
+      </div>
 
     </div>
   );

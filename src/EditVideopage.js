@@ -8,12 +8,14 @@ function EditVideoPage() {
   const history = useHistory();
 
   return (
-    <section className="section">
+    <div className="wrapper">
       <div className="container">
-        <p className="title has-text-centered">Edit video</p>
-        <EditVideo videoId={id} history={history}/>
+        <div className="form-wrapper">
+          <p className="title has-text-centered">Edit video</p>
+          <EditVideo videoId={id} history={history}/>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
 

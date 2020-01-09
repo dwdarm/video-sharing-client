@@ -6,12 +6,14 @@ import PostVideo from './components/PostVideo';
 function PostVideoPage() {
   const history = useHistory();
   return (
-    <section className="section">
+    <div className="wrapper">
       <div className="container">
-        <p className="title has-text-centered">Post a video</p>
-        <PostVideo history={history}/>
+        <div className="form-wrapper">
+          <p className="title has-text-centered">Post a video</p>
+          <PostVideo history={history}/>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
 

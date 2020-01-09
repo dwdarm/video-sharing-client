@@ -32,7 +32,7 @@ export default function VideoForm(props) {
     <div style={{maxWidth:'600px', margin: '0 auto'}}>
 
       <div className="field">
-        <label className="label">Video:</label>
+        <label className="label">Video<span className="has-text-danger">*</span></label>
         <div className="control">
           <div className="file has-name is-fullwidth is-primary">
             <label className="file-label">
@@ -52,7 +52,7 @@ export default function VideoForm(props) {
       </div>
 
       <div className="field">
-        <label className="label">Thumbnail (Optional):</label>
+        <label className="label">Thumbnail</label>
         <div className="control">
           <div className="file has-name is-fullwidth is-primary">
             <label className="file-label">
@@ -72,12 +72,11 @@ export default function VideoForm(props) {
       </div>
 
       <div className="field">
-        <label className="label">Title:</label>
+        <label className="label">Title<span className="has-text-danger">*</span></label>
         <div className="control">
           <input
             type="input"
             className="input"
-            placeholder="Title"
             onChange={props.onTitleChange}
             defaultValue={props.initialTitleValue}
           />
@@ -85,11 +84,10 @@ export default function VideoForm(props) {
       </div>
 
       <div className="field">
-        <label className="label">Caption:</label>
+        <label className="label">Caption</label>
         <div className="control">
           <textarea
             className="textarea"
-            placeholder="Caption"
             row="10"
             onChange={props.onCaptionChange}
             defaultValue={props.initialCaptionValue}
@@ -101,11 +99,10 @@ export default function VideoForm(props) {
         <div className="control">
           <button
             className={`
-              button is-link is-medium is-fullwidth
+              button is-link is-fullwidth
               ${props.loading ? 'is-loading' : null}
             `}
-            onClick={props.onSubmit}
-          >
+            onClick={props.onSubmit}>
             Submit
           </button>
         </div>

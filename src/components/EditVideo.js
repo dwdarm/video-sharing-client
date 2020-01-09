@@ -53,7 +53,7 @@ function EditVideo({ auth, history, videoId, item, isUploading, isLoading, dispa
         <div className="field is-grouped is-grouped-right">
           <div className="control">
             <button
-              className="button is-danger is-medium"
+              className="button is-danger"
               onClick={() => setShowDeleteWarning(true)}>
               Delete
             </button>
