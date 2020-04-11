@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchComments, postComment, deleteComment } from '../store/actions/videos';
-import CommentList from './CommentList';
+import { fetchComments, postComment, deleteComment } from '../../store/actions/videos';
+import CommentList from '../../components/CommentList';
 
 function VideoComments(props) {
   const [comment, setComment] = useState('');
@@ -35,27 +35,25 @@ function VideoComments(props) {
   }
 
   return (
-    <div className="comment-wrapper">
-      <div className="container">
-        <p className="title is-5">Comments</p>
+    <>
+      <p className="title is-5">Comments</p>
 
-        {(auth.isAuthenticated) ?
+      {(auth.isAuthenticated) ?
         <CommentPost
           onTextChange={e => setComment(e.target.value)}
           onSubmit={onSubmit}
           loading={comments.isLoading}
-        /> : null}
+        /> : null
+      }
 
-        <CommentList
-          data={data}
-          loadMore={onLoadMore}
-          hasMore={hasMore}
-          loggedId={auth.accountId}
-          onDelete={onDelete}
-        />
-
-      </div>
-    </div>
+      <CommentList
+        data={data}
+        loadMore={onLoadMore}
+        hasMore={hasMore}
+        loggedId={auth.accountId}
+        onDelete={onDelete}
+      />
+    </>
   );
 
 }

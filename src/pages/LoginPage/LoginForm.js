@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { login } from '../store/actions/auth';
+import { login } from '../../store/actions/auth';
 
 function LoginForm(props) {
   const [ username, setUsername ] = useState('');

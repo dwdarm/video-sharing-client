@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchHomeVideos } from '../store/actions/videos';
-import VideoList from './VideoList';
+import { fetchHomeVideos } from '../../store/actions/videos';
+import VideoList from '../../components/VideoList';
 
 function HomeVideos({dispatch, auth, videos, hasMore, isLoading}) {
   const onLoadMore = () => {

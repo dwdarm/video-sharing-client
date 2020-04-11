@@ -1,8 +1,9 @@
 import React from 'react';
 import { useParams, useHistory } from "react-router-dom";
-import EditProfileForm from'./components/EditProfileForm';
+import EditVideo from './EditVideo';
 
-function EditProfilePage(props) {
+
+function EditVideoPage() {
   const { id } = useParams();
   const history = useHistory();
 
@@ -10,12 +11,12 @@ function EditProfilePage(props) {
     <div className="wrapper">
       <div className="container">
         <div className="form-wrapper">
-          <p className="title has-text-centered">Edit Profile</p>
-          <EditProfileForm accountId={id} history={history}/>
+          <p className="title has-text-centered">Edit video</p>
+          <EditVideo videoId={id} history={history}/>
         </div>
       </div>
     </div>
   );
 }
 
-export default EditProfilePage;
+export default EditVideoPage;

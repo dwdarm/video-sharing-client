@@ -1,56 +1,11 @@
 @charset "utf-8";
 
-$card-content-padding: 1rem;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+$card-content-padding: 1rem 0;
 $card-background-color: hsl(0, 0%, 98%);
-$card-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 $footer-padding: 1rem;
 
 @import "~bulma/bulma";
-
-body {
-  width: 100%;
-  min-height: 100vh;
-  background-color: hsl(0, 0%, 96%);
-}
-
-.wrapper {
-  padding: 1.5rem 1rem;
-}
-
-.form-wrapper {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-.video-wrapper {
-  padding: 1.5rem;
-}
-
-.comment-wrapper {
-  padding: 1.5rem 1.5rem 4.5rem 1.5rem;
-}
-
-.main-content {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.is-flex-1 {
-  flex: 1 0 auto;
-}
-
-@media (min-width:768px) {
-  .wrapper {
-    padding: 3rem 0;
-  }
-
-  .video-wrapper {
-    padding: 1.5rem 0;
-  }
-
-  .comment-wrapper {
-    padding: 1.5rem 0rem 4.5rem 0rem;
-  }
-}

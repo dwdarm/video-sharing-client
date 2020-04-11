@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   fetchAccount,
   subscribeAccount,
   unsubscribeAccount
-} from '../store/actions/accounts';
-import Loading from './Loading';
-import Notification from './Notification';
+} from '../../store/actions/accounts';
+import Loading from '../../components/Loading';
+import Notification from '../../components/Notification';
 
 const defaultAvatarUrl = 'https://res.cloudinary.com/dayie1lcz/image/upload/v1578373630/profile-placeholder_zelklf.png';
 
@@ -23,7 +22,7 @@ function ProfileBanner(props) {
 
   if (error && !account) {
     return(
-      <div className="wrapper">
+      <div className="section">
         <div className="container">
           <Notification type="error" text={error}/>
         </div>
@@ -33,7 +32,7 @@ function ProfileBanner(props) {
 
   if (!account) {
     return(
-      <div className="wrapper">
+      <div className="section">
         <div className="container">
           <Loading/>
         </div>

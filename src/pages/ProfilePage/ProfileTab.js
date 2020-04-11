@@ -12,7 +12,7 @@ function ProfileTab(props) {
   if (!account) { return(null) }
 
   return(
-    <div>
+    <>
 
       <div className="tabs is-centered">
         <ul>
@@ -33,26 +33,22 @@ function ProfileTab(props) {
         </ul>
       </div>
 
-      <div className="wrapper" style={{paddingBottom:'4.5rem'}}>
-        <div className="container">
-          <Switch>
-            <Route path={`${match.path}/about`}>
-              <ProfileAbout
-                date={account.createdAt}
-                about={account.about}
-              />
-            </Route>
-            <Route path={`${match.path}/likes`}>
-              <AccountVideos accountId={accountId} type="likes"/>
-            </Route>
-            <Route path={match.path}>
-              <AccountVideos accountId={accountId} type="videos"/>
-            </Route>
-          </Switch>
-        </div>
-      </div>
+      <Switch>
+        <Route path={`${match.path}/about`}>
+          <ProfileAbout
+            date={account.createdAt}
+            about={account.about}
+          />
+        </Route>
+        <Route path={`${match.path}/likes`}>
+          <AccountVideos accountId={accountId} type="likes"/>
+        </Route>
+        <Route path={match.path}>
+          <AccountVideos accountId={accountId} type="videos"/>
+        </Route>
+      </Switch>
 
-    </div>
+    </>
   );
 }
 

@@ -1,15 +1,15 @@
 import React from 'react';
 import { Route, Switch } from "react-router-dom";
-import LoginPage from './LoginPage';
-import RegisterPage from './RegisterPage';
-import HomePage from './HomePage';
-import VideoPage from './VideoPage';
-import ProfilePage from './ProfilePage';
-import EditProfilePage from './EditProfilePage';
-import PostVideoPage from './PostVideoPage';
-import EditVideoPage from './EditVideopage';
+import HomePage from './pages/HomePage';
+import VideoPage from './pages/VideoPage';
+import ProfilePage from './pages/ProfilePage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import EditProfilePage from './pages/EditProfilePage';
+import PostVideoPage from './pages/PostVideoPage';
+import EditVideoPage from './pages/EditVideopage';
 
-function Router(props) {
+function Router() {
   return(
     <Switch>
       <Route path="/video/:id/update"><EditVideoPage/></Route>

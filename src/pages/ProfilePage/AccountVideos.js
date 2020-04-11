@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchAccountVideos, fetchAccountLikes } from '../store/actions/accounts';
-import VideoList from './VideoList';
+import { fetchAccountVideos, fetchAccountLikes } from '../../store/actions/accounts';
+import VideoList from '../../components/VideoList';
 
 function AccountVideos({ dispatch, auth, videos, type, accountId }) {
   if (!videos) {

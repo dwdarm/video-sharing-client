@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { updateAccount } from '../store/actions/accounts';
+import { updateAccount } from '../../store/actions/accounts';
 
 function onFileChange(callback) {
   const file = document.getElementById('file-avatar');

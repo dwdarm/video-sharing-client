@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { postVideo } from '../store/actions/videos';
-import VideoForm from './VideoForm';
+import { postVideo } from '../../store/actions/videos';
+import VideoForm from '../../components/VideoForm';
 
 function PostVideo(props) {
   const [ video, setVideo ] = useState(null);

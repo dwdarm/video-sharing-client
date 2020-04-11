@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { register } from '../store/actions/auth';
+import { register } from '../../store/actions/auth';
 
 function RegisterForm(props) {
   const [ username, setUsername ] = useState('');

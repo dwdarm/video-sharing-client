@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { updateVideo, deleteVideo } from '../store/actions/videos';
-import VideoForm from './VideoForm';
+import { updateVideo, deleteVideo } from '../../store/actions/videos';
+import VideoForm from '../../components/VideoForm';
 
 function EditVideo({ auth, history, videoId, item, isUploading, isLoading, dispatch }) {
   const [ video, setVideo ] = useState(null);

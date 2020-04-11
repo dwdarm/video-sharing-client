@@ -71,12 +71,13 @@ function LoggedMenu(props) {
 
 function NavBar(props) {
 
+  /*
   useEffect(() => {
     const trigger = document.querySelector('.navbar-burger');
     const menu = document.getElementById(trigger.dataset.target);
     trigger.classList.remove('is-active');
     menu.classList.remove('is-active');
-  })
+  })*/
 
   return (
     <nav className="navbar is-dark" role="navigation" aria-label="main navigation">

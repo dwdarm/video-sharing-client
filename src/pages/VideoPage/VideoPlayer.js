@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import Video from './Video';
-import Loading from './Loading';
-import Notification from './Notification';
+import Video from '../../components/Video';
+import Loading from '../../components/Loading';
+import Notification from '../../components/Notification';
 import { connect } from 'react-redux';
-import { fetchVideo, likeVideo, unlikeVideo } from '../store/actions/videos';
-import { subscribeAccount, unsubscribeAccount } from '../store/actions/accounts';
+import { fetchVideo, likeVideo, unlikeVideo } from '../../store/actions/videos';
+import { subscribeAccount, unsubscribeAccount } from '../../store/actions/accounts';
 
 const defaultAvatarUrl = 'https://res.cloudinary.com/dayie1lcz/image/upload/v1578373630/profile-placeholder_zelklf.png';
 
@@ -20,42 +20,28 @@ function VideoPlayer({
   });
 
   if (error && !video) {
-    return(
-      <div className="wrapper">
-        <div className="container">
-          <Notification type="error" text={error}/>
-        </div>
-      </div>
-    );
+    return <Notification type="error" text={error}/>
   }
 
   if (!video) {
-    return(
-      <div className="wrapper">
-        <div className="container">
-          <Loading/>
-        </div>
-      </div>
-    );
+    return <Loading/>
   }
 
   const { account } = video;
 
   return(
-    <div>
+    <>
 
       { /* Video */ }
-      <div className="has-background-black">
-        <div className="container">
-          <Video id="player" playsInline controls>
-            <source src={video.urlToVideo}/>
-            <source src={video.urlToVideo}/>
-          </Video>
-        </div>
-      </div>
+      <Video id="player" playsInline controls>
+        <source src={video.urlToVideo}/>
+        <source src={video.urlToVideo}/>
+      </Video>
 
-      <div className="video-wrapper">
-        <div className="container">
+
+
+      <div>
+        <div>
 
           { /* Title */ }
           <h1 className="title">{video.title}</h1>
@@ -140,7 +126,7 @@ function VideoPlayer({
         </div>
       </div>
 
-    </div>
+    </>
   );
 
 }
